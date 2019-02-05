@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- <% include ../partials/header.ejs %> -->
-</head>
 
 <body>
 
-<div class="jumbotron text-center">
-  <div class="container">
-    Please do work through the Getting Started guide, even if you do know how to build such an application.  The guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order to build and deploy your own apps.
-  </div>
-</div>
+<div class="container">
+<h2>Database Results</h2>
 
+<ul>
+    <% results.forEach(function(r) { %>
+        <li><%= r.id %> - <%= r.name %></li>
+    <% }); %>
+</ul>
+
+</div>
 
 </body>
 </html>
