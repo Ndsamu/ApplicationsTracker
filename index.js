@@ -1,5 +1,6 @@
 const cool = require('cool-ascii-faces')
 const express = require('express')
+const bodyParser = require('body-parser')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
@@ -10,6 +11,7 @@ const pool = new Pool({
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
+  .use(bodyParser.urlencoded({ extended: true }))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', async (req, res) => {
@@ -27,10 +29,11 @@ express()
   .get('/form', (req, res) => res.render('pages/form'))
   .post('/form', (req, res) => {
     try {
+      const color = req.body.color;
+      console.log('Color: ' + color);
       res.redirect('/form');
-      console.log('Testing.')
     } catch (err) {
-      res.send("Hm. That isn't right.");
+      res.send("Hm. That isn't right. " + error);
     }
   })
   .get('/cool', (req, res) => res.send(cool()))
