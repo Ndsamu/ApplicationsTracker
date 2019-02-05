@@ -24,6 +24,15 @@ express()
       res.send("Error " + err);
     }
   })
+  .get('/form', (req, res) => res.render('pages/form'))
+  .post('/form', (req, res) => {
+    try {
+      res.redirect('/form');
+      console.log('Testing.')
+    } catch (err) {
+      res.send("Hm. That isn't right.");
+    }
+  })
   .get('/cool', (req, res) => res.send(cool()))
   .get('/times', (req, res) => res.send(showTimes()))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
