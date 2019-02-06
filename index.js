@@ -42,6 +42,19 @@ express()
       res.send("Hm. That isn't right. " + err);
     }
   })
+  .post('/delete', async (req, res) => {
+    try {
+      const company = req.body.company;
+      const query = 'DELETE FROM applications WHERE company = \''+company+'\'';
+      const client = await pool.connect();
+      console.log(query);
+      client.query(query);
+      client.release();
+      res.redirect('/');
+    } catch {
+      res.send("Hm. That isn't right. " + err);
+    }
+  })
   .get('/form', async (req, res) => {
     try {
       const client = await pool.connect();
