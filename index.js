@@ -26,9 +26,9 @@ express()
       res.send("Error " + err);
     }
   })
-  .get('/form', async (req, res) => {
+  .get('/form', (req, res) => {
     try {
-      const client = await pool.connect();
+      const client = pool.connect();
       const query = client.query('SELECT color FROM colors WHERE id=0;');
       console.log('Query result: ');
       query.on('row', function(row) {
