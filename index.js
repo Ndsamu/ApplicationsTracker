@@ -32,7 +32,7 @@ express()
       const query = await client.query('SELECT color FROM colors WHERE id=0;');
       console.log('Query result: ');
       query.rows.forEach(row=>{
-        console.log(row);
+        console.log(row.color);
       });
       await client.release();
       res.render('pages/form', {color:"red"})
