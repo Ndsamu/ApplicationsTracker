@@ -31,12 +31,10 @@ express()
       const client = await pool.connect();
       const query = await client.query('SELECT color FROM colors WHERE id=0;');
       console.log('Query result: ');
-      query.on('row', function(row) {
+      query.rows.forEach(row=>{
         console.log(row);
       });
-      query.on('end', function() {
-        client.release();
-      });
+      await client.release();
       res.render('pages/form', {color:"red"})
     } catch (err) {
       res.send("Hm. That isn't right. " + err);
