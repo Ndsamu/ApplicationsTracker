@@ -26,11 +26,26 @@ express()
       res.send("Error " + err);
     }
   })
+  .post('/', async (req, res) => {
+    try {
+      const company = req.body.company;
+      const position = req.body.position;
+      const experience = req.body.experience;
+      const source = req.body.source;
+      const client = await pool.connect()
+      const query = 'INSERT INTO applications VALUES ('+company+', '+position+', '+experience+', '+source+')';
+      console.log(query);
+      client.query(query);
+      client.release();
+      res.redirect('/');
+    } catch (err) {
+      res.send("Hm. That isn't right. " + err);
+    }
+  })
   .get('/form', async (req, res) => {
     try {
       const client = await pool.connect();
-      const query = await client.query('SELECT color FROM colors WHERE id=0;');
-      var db_color = 'red' // Default color = red
+      var db_color = ''
       // Access the query from the database
       query.rows.forEach(row=>{
         db_color = row.color;
