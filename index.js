@@ -39,7 +39,7 @@ express()
       });
       res.render('pages/form', {color:"red"})
     } catch (err) {
-      res.send("Hm. That isn't right. " + error);
+      res.send("Hm. That isn't right. " + err);
     }
   })
   .post('/form', async (req, res) => {
@@ -51,7 +51,7 @@ express()
       client.release();
       res.redirect('/form');
     } catch (err) {
-      res.send("Hm. That isn't right. " + error);
+      res.send("Hm. That isn't right. " + err);
     }
   })
   .get('/cool', (req, res) => res.send(cool()))
