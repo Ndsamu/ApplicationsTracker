@@ -5,12 +5,24 @@
 <body class="index">
 
 <div class="container">
-<h2>Database Results</h2>
+<h2>Job Applications</h2>
+
+<form action="/index" method="post">
+    <label for="company">Enter name: </label>
+    <input id="company" type="text" name="company_field" value="EvilCorp LLC.">
+
+    <label for="position">Enter name: </label>
+    <input id="position" type="text" name="position_field" value="Default name for team.">
+
+    <input type="submit" value="OK">
+</form>
 
 <ul>
+    <!--
     <% results.forEach(function(r) { %>
         <li><%= r.id %> - <%= r.name %></li>
     <% }); %>
+    -->
 </ul>
 
 </div>
