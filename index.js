@@ -45,6 +45,7 @@ express()
   .get('/form', async (req, res) => {
     try {
       const client = await pool.connect();
+      const query = await client.query('SELECT color FROM colors WHERE id=0;');
       var db_color = ''
       // Access the query from the database
       query.rows.forEach(row=>{
