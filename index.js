@@ -28,10 +28,10 @@ express()
   })
   .post('/index', async (req, res) => {
     try {
-      const company = req.body.company;
-      const position = req.body.position;
-      const experience = req.body.experience;
-      const source = req.body.source;
+      const company = req.body.company_field;
+      const position = req.body.position_field;
+      const experience = req.body.experience_field;
+      const source = req.body.source_field;
       const client = await pool.connect()
       const query = 'INSERT INTO applications VALUES ('+company+', '+position+', '+experience+', '+source+')';
       console.log(query);
