@@ -26,7 +26,11 @@
 
     <ul>
         <% applications.forEach(function(app) { %>
-            <li><%= app.company %> - <%= app.position %></li>
+            <li>Company: <%= app.company %> <br>
+                Position: <%= app.position %> <br>
+                Experience: <%= app.experience %> <br>
+                Source: <%= app.source %> <br>
+            </li>
         <% }); %>
     </ul>
 
