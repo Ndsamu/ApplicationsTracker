@@ -26,10 +26,10 @@ express()
       res.send("Error " + err);
     }
   })
-  .get('/form', (req, res) => {
+  .get('/form', async (req, res) => {
     try {
-      const client = pool.connect();
-      const query = client.query('SELECT color FROM colors WHERE id=0;');
+      const client = await pool.connect();
+      const query = await client.query('SELECT color FROM colors WHERE id=0;');
       console.log('Query result: ');
       query.on('row', function(row) {
         console.log(row);
