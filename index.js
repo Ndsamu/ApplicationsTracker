@@ -20,7 +20,7 @@ express()
       //const result = await client.query('SELECT * FROM test_table');
       //const results = { 'results': (result) ? result.rows : null};
       //res.render('pages/index', results );
-      res.render('pages/index');
+      res.send('pages/index');
       //client.release();
     } catch (err) {
       console.error(err);
