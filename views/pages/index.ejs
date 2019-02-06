@@ -24,6 +24,15 @@
         <input type="submit" value="Submit Application">
     </form>
 
+    <form action="/delete" method="post">
+        <select onchange="this.form.submit()" name="application">
+            <option></option>
+            <% applications.forEach(function(app) { %>
+                <option><%= app.company %></option>
+            <% }); %>
+        </select>
+    </form>
+
     <ul>
         <% applications.forEach(function(app) { %>
             <li>Company: <%= app.company %> <br>
