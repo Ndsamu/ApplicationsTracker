@@ -15,18 +15,17 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => {
-    res.render('pages/index');
-    /*try {
-      //const client = await pool.connect();
-      //const result = await client.query('SELECT * FROM test_table');
-      //const results = { 'results': (result) ? result.rows : null};
-      //res.render('pages/index', results );
-      res.render('pages/index');
-      //client.release();
+    try {
+      const client = await pool.connect();
+      const query = await client.query('SELECT * FROM applications');
+      const results = { 'applications': (application) ? application.rows : null};
+      res.render('pages/index', applications);
+      //res.render('pages/index');
+      client.release();
     } catch (err) {
       console.error(err);
       res.send("Error " + err);
-    }*/
+    }
   })
   .get('/form', async (req, res) => {
     try {
