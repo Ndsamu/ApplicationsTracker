@@ -16,7 +16,7 @@ express()
   .set('view engine', 'ejs')
   .get('/', async (req, res) => {
     try {
-      const client = await pool.connect()
+      const client = await pool.connect();
       const result = await client.query('SELECT * FROM test_table');
       const results = { 'results': (result) ? result.rows : null};
       res.render('pages/index', results );
@@ -26,8 +26,22 @@ express()
       res.send("Error " + err);
     }
   })
-  .get('/form', (req, res) => res.render('pages/form'))
-  // UPDATE colors SET color = 'green' WHERE id = 0;
+  .get('/form', async (req, res) => {
+    try {
+      const client = await pool.connect();
+      const query = client.query('SELECT color FROM colors WHERE id=0;');
+      console.log('Query result: ');
+      query.on('row', function(row) {
+        console.log(row);
+      });
+      query.on('end', function() {
+        client.release();
+      });
+      res.render('pages/form', {color:"red"})
+    } catch (err) {
+      res.send("Hm. That isn't right. " + error);
+    }
+  })
   .post('/form', async (req, res) => {
     try {
       const color = req.body.color;
@@ -44,6 +58,10 @@ express()
   .get('/times', (req, res) => res.send(showTimes()))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
+
+updateColor = () => {
+
+}
 
 showTimes = () => {
   let result = ''
