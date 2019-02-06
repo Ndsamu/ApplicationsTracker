@@ -25,6 +25,14 @@
     .jumbotron .lang-logo img {
       max-width: 100%; }
 
-.index {
+.red {
+  background: #ff9696;
+}
+
+.green {
+  background: #99ff96;
+}
+
+.blue {
   background: #96fff6;
 }
