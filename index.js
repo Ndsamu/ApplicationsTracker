@@ -30,12 +30,14 @@ express()
     try {
       const client = await pool.connect();
       const query = await client.query('SELECT color FROM colors WHERE id=0;');
-      console.log('Query result: ');
+      const db_color = 'red' // Default color = red
+      // Access the query from the database
       query.rows.forEach(row=>{
-        console.log(row.color);
+        db_color = row.color;
       });
+      console.log('Color (from database): ' + db_color);
       await client.release();
-      res.render('pages/form', {color:"red"})
+      res.render('pages/form', {color:db_color});
     } catch (err) {
       res.send("Hm. That isn't right. " + err);
     }
