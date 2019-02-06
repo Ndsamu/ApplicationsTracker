@@ -26,7 +26,7 @@ express()
       res.send("Error " + err);
     }
   })
-  .post('/', async (req, res) => {
+  .post('/index', async (req, res) => {
     try {
       const company = req.body.company;
       const position = req.body.position;
