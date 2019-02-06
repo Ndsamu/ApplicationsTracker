@@ -31,9 +31,9 @@ express()
   .post('/form', async (req, res) => {
     try {
       const color = req.body.color;
-      console.log('SQL Query: ' + 'UPDATE colors SET color = "' + color + '" WHERE id = 0;');
+      console.log('SQL Query: ' + 'UPDATE colors SET color = \'' + color + '\' WHERE id = 0;');
       const client = await pool.connect()
-      client.query('UPDATE colors SET color = ' + color + ' WHERE id = 0;');
+      client.query('UPDATE colors SET color = \'' + color + '\' WHERE id = 0;');
       client.release();
       res.redirect('/form');
     } catch (err) {
