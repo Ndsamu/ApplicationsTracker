@@ -33,7 +33,7 @@ express()
       const experience = req.body.experience_field;
       const source = req.body.source_field;
       const client = await pool.connect()
-      const query = 'INSERT INTO applications VALUES ('+company+', '+position+', '+experience+', '+source+')';
+      const query = 'INSERT INTO applications VALUES (\''+company+'\', \''+position+'\', \''+experience+'\', \''+source+'\')';
       console.log(query);
       client.query(query);
       client.release();
