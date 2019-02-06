@@ -14,14 +14,14 @@ express()
   .use(bodyParser.urlencoded({ extended: true }))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
-  .get('/', async (req, res) => {
+  .get('/', (req, res) => {
     try {
-      const client = await pool.connect();
+      //const client = await pool.connect();
       //const result = await client.query('SELECT * FROM test_table');
       //const results = { 'results': (result) ? result.rows : null};
       //res.render('pages/index', results );
       res.render('pages/index');
-      client.release();
+      //client.release();
     } catch (err) {
       console.error(err);
       res.send("Error " + err);
