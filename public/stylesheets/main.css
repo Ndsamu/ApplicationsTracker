@@ -26,7 +26,11 @@
       max-width: 100%; }
 
 .index {
-  background: #96fff6;
+  background: #ff8282;
+}
+
+.center {
+  margin: auto;
 }
 
 .red {
