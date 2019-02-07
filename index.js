@@ -59,9 +59,8 @@ express()
         const query = 'INSERT INTO applications VALUES (\''+company+'\', \''+position+'\', \''+experience+'\', \''+source+'\')';
         console.log(query);
         client.query(query);
+        client.release();
       }
-
-      client.release();
       res.redirect('/');
     } catch (err) {
       res.send("Hm. That isn't right. " + err);
