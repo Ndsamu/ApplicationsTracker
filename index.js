@@ -61,8 +61,8 @@ express()
         console.log(query);
         client.query(query);
         client.release();
+        res.redirect('/');
       }
-      res.redirect('/');
     } catch (err) {
       res.send("Hm. That isn't right. " + err);
     }
