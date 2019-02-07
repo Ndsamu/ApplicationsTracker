@@ -31,10 +31,10 @@ express()
     }
   })
   .post('/index', [
-    check('company_field', 'Empty Company Name.').exists(),
-    check('position_field', 'Empty Position Name.').exists(),
-    check('experience_field', 'Empty Experience Level.').exists(),
-    check('source_field', 'Empty Source.').exists()
+    check('company_field', 'Empty Company Name.').isLength({ min: 1 }),
+    check('position_field', 'Empty Position Name.').isLength({ min: 1 }),
+    check('experience_field', 'Empty Experience Level.').isLength({ min: 1 }),
+    check('source_field', 'Empty Source.').isLength({ min: 1 })
   ], async (req, res) => {
     try {
       /*
