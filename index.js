@@ -36,7 +36,11 @@ app.post('/index', [
     check('company_field', 'Empty Company Name.').isLength({ min: 1 }),
     check('position_field', 'Empty Position Name.').isLength({ min: 1 }),
     check('experience_field', 'Empty Experience Level.').isLength({ min: 1 }),
-    check('source_field', 'Empty Source.').isLength({ min: 1 })
+    check('source_field', 'Empty Source.').isLength({ min: 1 }),
+    sanitizeBody('company_field').trim().escape(),
+    sanitizeBody('position_field').trim().escape(),
+    sanitizeBody('experience_field').trim().escape(),
+    sanitizeBody('source_field').trim().escape()
   ], async (req, res) => {
     try {
       /*
