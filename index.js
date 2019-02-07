@@ -2,7 +2,7 @@ const cool = require('cool-ascii-faces')
 const express = require('express')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator');
-const { body,validationResult } = require('express-validator/check');
+const { check,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 const path = require('path')
 const PORT = process.env.PORT || 5000
@@ -30,24 +30,19 @@ express()
       res.send("Error " + err);
     }
   })
-  .post('/index', async (req, res) => {
+  .post('/index', [
+    check('company_field', 'Empty Company Name.').exists(),
+    check('position_field', 'Empty Position Name.').exists(),
+    check('experience_field', 'Empty Experience Level.').exists(),
+    check('source_field', 'Empty Source.').exists()
+  ], async (req, res) => {
     try {
-      // Checking that all fields have at least one character
-      body('company_field', 'Empty Company Name.').exists();
-      body('position_field', 'Empty Position Name.').exists();
-      body('experience_field', 'Empty Experience Level.').exists();
-      body('source_field', 'Empty Source.').exists();
-
-      // Sanitizing input for security risks such as CSRF
+      /*
       sanitizeBody('company_field').trim().escape();
       sanitizeBody('position_field').trim().escape();
       sanitizeBody('experience_field').trim().escape();
       sanitizeBody('source_field').trim().escape();
-
-      const company = req.body.company_field;
-      const position = req.body.position_field;
-      const experience = req.body.experience_field;
-      const source = req.body.source_field;
+      */
 
       const errors = validationResult(req);
 
@@ -58,6 +53,10 @@ express()
         }
       else {
         // Data from form is valid.
+        const company = req.body.company_field;
+        const position = req.body.position_field;
+        const experience = req.body.experience_field;
+        const source = req.body.source_field;
         const client = await pool.connect();
         const query = 'INSERT INTO applications VALUES (\''+company+'\', \''+position+'\', \''+experience+'\', \''+source+'\')';
         console.log(query);
