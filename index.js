@@ -1,7 +1,6 @@
 const cool = require('cool-ascii-faces')
 const express = require('express')
 const bodyParser = require('body-parser')
-const expressValidator = require('express-validator');
 const { check,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 const path = require('path')
@@ -12,13 +11,15 @@ const pool = new Pool({
   ssl: true
 });
 
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .use(bodyParser.urlencoded({ extended: true }))
-  .use(expressValidator())
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', async (req, res) => {
+
+const app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.get('/', async (req, res) => {
     try {
       const client = await pool.connect();
       const query = await client.query('SELECT * FROM applications');
@@ -29,8 +30,9 @@ express()
       console.error(err);
       res.send("Error " + err);
     }
-  })
-  .post('/index', [
+});
+
+app.post('/index', [
     check('company_field', 'Empty Company Name.').isLength({ min: 1 }),
     check('position_field', 'Empty Position Name.').isLength({ min: 1 }),
     check('experience_field', 'Empty Experience Level.').isLength({ min: 1 }),
@@ -67,8 +69,9 @@ express()
     } catch (err) {
       res.send("Hm. That isn't right. " + err);
     }
-  })
-  .post('/delete', async (req, res) => {
+});
+
+app.post('/delete', async (req, res) => {
     try {
       const company = req.body.company;
       const query = 'DELETE FROM applications WHERE company = \''+company+'\'';
@@ -80,8 +83,9 @@ express()
     } catch {
       res.send("Hm. That isn't right. " + err);
     }
-  })
-  .get('/form', async (req, res) => {
+});
+
+app.get('/form', async (req, res) => {
     try {
       const client = await pool.connect();
       const query = await client.query('SELECT color FROM colors WHERE id=0;');
@@ -96,8 +100,9 @@ express()
     } catch (err) {
       res.send("Hm. That isn't right. " + err);
     }
-  })
-  .post('/form', async (req, res) => {
+});
+
+app.post('/form', async (req, res) => {
     try {
       const color = req.body.color;
       console.log('SQL Query: ' + 'UPDATE colors SET color = \'' + color + '\' WHERE id = 0;');
@@ -108,10 +113,11 @@ express()
     } catch (err) {
       res.send("Hm. That isn't right. " + err);
     }
-  })
-  .get('/cool', (req, res) => res.send(cool()))
-  .get('/times', (req, res) => res.send(showTimes()))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+});
+
+app.get('/cool', (req, res) => res.send(cool()));
+app.get('/times', (req, res) => res.send(showTimes()));
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 showTimes = () => {
   let result = ''
@@ -120,4 +126,4 @@ showTimes = () => {
     result += i + ' '
   }
   return result;
-}
+});
