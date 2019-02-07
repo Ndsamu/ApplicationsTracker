@@ -1,6 +1,7 @@
 const cool = require('cool-ascii-faces')
 const express = require('express')
 const bodyParser = require('body-parser')
+const expressValidator = require('express-validator');
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 const path = require('path')
@@ -32,10 +33,10 @@ express()
   .post('/index', async (req, res) => {
     try {
       // Checking that all fields have at least one character
-      body('company_field', 'Empty Company Name.').isLength({ min: 1 });
-      body('position_field', 'Empty Position Name.').isLength({ min: 1 });
-      body('experience_field', 'Empty Experience Level.').isLength({ min: 1 });
-      body('source_field', 'Empty Source.').isLength({ min: 1 });
+      body('company_field', 'Empty Company Name.').exists();
+      body('position_field', 'Empty Position Name.').exists();
+      body('experience_field', 'Empty Experience Level.').exists();
+      body('source_field', 'Empty Source.').exists();
 
       // Sanitizing input for security risks such as CSRF
       sanitizeBody('company_field').trim().escape();
