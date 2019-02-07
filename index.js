@@ -1,6 +1,8 @@
 const cool = require('cool-ascii-faces')
 const express = require('express')
 const bodyParser = require('body-parser')
+const { body,validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 const path = require('path')
 const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
@@ -28,14 +30,37 @@ express()
   })
   .post('/index', async (req, res) => {
     try {
+      // Checking that all fields have at least one character
+      body('company_field', 'Empty Company Name.').isLength({ min: 1 });
+      body('position_field', 'Empty Position Name.').isLength({ min: 1 });
+      body('experience_field', 'Empty Experience Level.').isLength({ min: 1 });
+      body('source_field', 'Empty Source.').isLength({ min: 1 });
+
+      // Sanitizing input for security risks such as CSRF
+      sanitizeBody('company_field').trim().escape();
+      sanitizeBody('position_field').trim().escape();
+      sanitizeBody('experience_field').trim().escape();
+      sanitizeBody('source_field').trim().escape();
+
       const company = req.body.company_field;
       const position = req.body.position_field;
       const experience = req.body.experience_field;
       const source = req.body.source_field;
-      const client = await pool.connect()
-      const query = 'INSERT INTO applications VALUES (\''+company+'\', \''+position+'\', \''+experience+'\', \''+source+'\')';
-      console.log(query);
-      client.query(query);
+
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        // There are errors. Render form again with sanitized values/errors messages.
+        // Error messages can be returned in an array using `errors.array()`.
+        }
+      else {
+        // Data from form is valid.
+        const client = await pool.connect();
+        const query = 'INSERT INTO applications VALUES (\''+company+'\', \''+position+'\', \''+experience+'\', \''+source+'\')';
+        console.log(query);
+        client.query(query);
+      }
+
       client.release();
       res.redirect('/');
     } catch (err) {
