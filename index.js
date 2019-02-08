@@ -24,7 +24,7 @@ app.get('/', async (req, res) => {
       const client = await pool.connect();
       const query = await client.query('SELECT * FROM applications');
       const applications = { 'applications': (query) ? query.rows : null};
-      res.render('pages/index', applications);
+      res.render('pages/index', applications.unescape());
       client.release();
     } catch (err) {
       console.error(err);
@@ -43,12 +43,6 @@ app.post('/index', [
     sanitizeBody('source_field').trim().escape()
   ], async (req, res) => {
     try {
-      /*
-      sanitizeBody('company_field').trim().escape();
-      sanitizeBody('position_field').trim().escape();
-      sanitizeBody('experience_field').trim().escape();
-      sanitizeBody('source_field').trim().escape();
-      */
 
       const errors = validationResult(req);
 
