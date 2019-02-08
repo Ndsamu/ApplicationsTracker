@@ -36,7 +36,7 @@ app.get('/', async (req, res) => {
       const client = await pool.connect();
       const query = await client.query('SELECT * FROM applications');
       query.rows.forEach(row=>{
-        console.log('Row: ' + JSON.stringify(sanitizeBody(row.company).unescape()));
+        console.log('Company: ' + row.company);
       });
       const applications = { 'applications': (query) ? query.rows : null};
       console.log(JSON.stringify(applications));
@@ -70,7 +70,7 @@ app.post('/index', [
         }
       else {
         // Data from form is valid.
-        const company = req.body.company_field;
+        const company = decodeURI(req.body.company_field);
         const position = req.body.position_field;
         const experience = req.body.experience_field;
         const source = req.body.source_field;
