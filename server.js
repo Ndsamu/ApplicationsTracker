@@ -54,10 +54,10 @@ app.post('/index', [
     check('position_field', 'Invalid Position Name.').isLength({ min: 1 }),
     check('experience_field', 'Invalid Experience Level.').isLength({ min: 1 }),
     check('source_field', 'Invalid Source.').isLength({ min: 1 }),
-    sanitizeBody('company_field').trim().escape(),
-    sanitizeBody('position_field').trim().escape(),
-    sanitizeBody('experience_field').trim().escape(),
-    sanitizeBody('source_field').trim().escape()
+    sanitizeBody('company_field').trim(),
+    sanitizeBody('position_field').trim(),
+    sanitizeBody('experience_field').trim(),
+    sanitizeBody('source_field').trim()
   ], async (req, res) => {
     try {
 
