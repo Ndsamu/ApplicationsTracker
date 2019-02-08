@@ -37,6 +37,10 @@ app.get('/', async (req, res) => {
       const query = await client.query('SELECT * FROM applications');
       const applications = { 'applications': (query) ? query.rows : null};
       console.log(applications);
+      for (application in applications) {
+        application.company.unescape();
+      }
+      console.log(applications);
       res.render('pages/index', applications);
       client.release();
     } catch (err) {
@@ -46,14 +50,14 @@ app.get('/', async (req, res) => {
 });
 
 app.post('/index', [
-    check('company_field', 'Invalid Company Name.').isLength({ min: 1 }).isAlphanumeric(),
-    check('position_field', 'Invalid Position Name.').isLength({ min: 1 }).isAlphanumeric(),
-    check('experience_field', 'Invalid Experience Level.').isLength({ min: 1 }).isAlphanumeric(),
-    check('source_field', 'Invalid Source.').isLength({ min: 1 }).isAlphanumeric(),
-    sanitizeBody('company_field').trim(),
-    sanitizeBody('position_field').trim(),
-    sanitizeBody('experience_field').trim(),
-    sanitizeBody('source_field').trim()
+    check('company_field', 'Invalid Company Name.').isLength({ min: 1 }),
+    check('position_field', 'Invalid Position Name.').isLength({ min: 1 }),
+    check('experience_field', 'Invalid Experience Level.').isLength({ min: 1 }),
+    check('source_field', 'Invalid Source.').isLength({ min: 1 }),
+    sanitizeBody('company_field').trim().escape(),
+    sanitizeBody('position_field').trim().escape(),
+    sanitizeBody('experience_field').trim().escape(),
+    sanitizeBody('source_field').trim().escape()
   ], async (req, res) => {
     try {
 
