@@ -37,7 +37,7 @@ app.get('/', async (req, res) => {
       const query = await client.query('SELECT * FROM applications');
       query.rows.forEach(row=>{
         console.log('Row: ' + row);
-      })
+      });
       const applications = { 'applications': (query) ? query.rows : null};
       //for (application in applications.applications) {
         //console.log(application.company);
