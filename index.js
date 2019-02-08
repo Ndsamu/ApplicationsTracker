@@ -23,7 +23,7 @@ app.get('/', async (req, res) => {
     try {
       const client = await pool.connect();
       const query = await client.query('SELECT * FROM applications');
-      const applications = { 'applications': (query) ? query.rows.unescape() : null};
+      const applications = { 'applications': (query) ? unescape(query.rows) : null};
       res.render('pages/index', applications);
       client.release();
     } catch (err) {
