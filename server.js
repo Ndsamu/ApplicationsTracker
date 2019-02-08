@@ -70,8 +70,7 @@ app.post('/index', [
         }
       else {
         // Data from form is valid.
-        const company = decodeURI(req.body.company_field);
-        console.log(decodeURI(req.body.company_field.replace(/'/g, "\\'")));
+        const company = req.body.company_field.replace(/'/g, "\\'");
         const position = req.body.position_field.replace(/'/g, "\\'");
         const experience = req.body.experience_field.replace(/'/g, "\\'");
         const source = req.body.source_field.replace(/'/g, "\\'");
