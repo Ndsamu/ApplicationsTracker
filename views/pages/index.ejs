@@ -8,7 +8,7 @@
 
     <h2>Job Applications</h2>
 
-    <form action="/index" method="post">
+    <form action="/applications/create" method="post">
         <label for="company">Company Name: </label>
         <input id="company" type="text" name="company_field" placeholder="EvilCorp LLC.">
         <br>
@@ -25,7 +25,7 @@
     </form>
 
     <h3>Delete</h3>
-    <form action="/delete" method="post">
+    <form action="/applications/delete" method="post">
         <select onchange="this.form.submit()" name="company">
             <option></option>
             <% applications.forEach(function(app) { %>
