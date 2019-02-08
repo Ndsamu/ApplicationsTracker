@@ -1,6 +1,7 @@
 const cool = require('cool-ascii-faces')
 const express = require('express')
 const bodyParser = require('body-parser')
+const querystring = require('querystring');
 const { check,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 const path = require('path')
@@ -23,7 +24,7 @@ app.get('/', async (req, res) => {
     try {
       const client = await pool.connect();
       const query = await client.query('SELECT * FROM applications');
-      const applications = { 'applications': (query) ? query.rows : null};
+      const applications = { 'applications': (query) ? querystring.unescape(query.rows) : null};
       res.render('pages/index', applications);
       client.release();
     } catch (err) {
