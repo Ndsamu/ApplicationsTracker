@@ -35,12 +35,13 @@ app.get('/', async (req, res) => {
     try {
       const client = await pool.connect();
       const query = await client.query('SELECT * FROM applications');
+      query.on('row', function(row) {
+        console.log('Row: ' + row);
+      })
       const applications = { 'applications': (query) ? query.rows : null};
-      for (application in applications.applications) {
-        for (parameter in application) {
-          console.log(parameter);
-        }
-      }
+      //for (application in applications.applications) {
+        //console.log(application.company);
+      //}
       //console.log(applications);
       res.render('pages/index', applications);
       client.release();
