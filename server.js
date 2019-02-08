@@ -35,7 +35,7 @@ app.get('/', async (req, res) => {
     try {
       const client = await pool.connect();
       const query = await client.query('SELECT * FROM applications');
-      query.on('row', function(row) {
+      res.rows.forEach(row=>{
         console.log('Row: ' + row);
       })
       const applications = { 'applications': (query) ? query.rows : null};
