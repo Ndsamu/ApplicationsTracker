@@ -38,7 +38,7 @@ app.get('/', async (req, res) => {
       const applications = { 'applications': (query) ? query.rows : null};
       console.log(applications);
       for (application in applications) {
-        application.company.unescape();
+        console.log('Company: ' + application.company);
       }
       console.log(applications);
       res.render('pages/index', applications);
