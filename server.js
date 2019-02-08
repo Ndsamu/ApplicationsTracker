@@ -42,7 +42,7 @@ app.get('/', async (req, res) => {
       //for (application in applications.applications) {
         //console.log(application.company);
       //}
-      //console.log(applications);
+      console.log(JSON.stringify(applications));
       res.render('pages/index', applications);
       client.release();
     } catch (err) {
@@ -72,7 +72,7 @@ app.post('/index', [
         }
       else {
         // Data from form is valid.
-        const company = sanitizeBody(req.body.company_field.value).unescape();
+        const company = req.body.company_field;
         const position = req.body.position_field;
         const experience = req.body.experience_field;
         const source = req.body.source_field;
