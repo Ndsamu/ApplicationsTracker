@@ -1,4 +1,3 @@
-const cool = require('cool-ascii-faces')
 const express = require('express')
 const flash = require('express-flash');
 const session = require('express-session');
@@ -8,8 +7,6 @@ const { sanitizeBody } = require('express-validator/filter');
 const path = require('path')
 const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
-// Handles local hosting where DATABASE_URL isn't available in the environment
-// This will be stored in a separate JS file which will be included in gitignore
 const connectionString = process.env.DATABASE_URL
 const pool = new Pool({
   connectionString: connectionString,
@@ -132,16 +129,4 @@ app.post('/form', async (req, res) => {
       res.send("Hm. That isn't right. " + err);
     }
 });
-
-app.get('/cool', (req, res) => res.send(cool()));
-app.get('/times', (req, res) => res.send(showTimes()));
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
-showTimes = () => {
-  let result = ''
-  const times = process.env.TIMES || 5
-  for (i = 0; i < times; i++) {
-    result += i + ' '
-  }
-  return result;
-}
