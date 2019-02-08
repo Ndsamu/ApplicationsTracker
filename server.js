@@ -39,9 +39,6 @@ app.get('/', async (req, res) => {
         console.log('Row: ' + row.company);
       });
       const applications = { 'applications': (query) ? query.rows : null};
-      //for (application in applications.applications) {
-        //console.log(application.company);
-      //}
       console.log(JSON.stringify(applications));
       res.render('pages/index', applications);
       client.release();
@@ -52,6 +49,7 @@ app.get('/', async (req, res) => {
 });
 
 app.post('/index', [
+    // NOTE: DATA SHOULD NOT BE STORED AS ESCAPED. IT SHOULD BE UNESCAPED BEFORE STORAGE!
     check('company_field', 'Invalid Company Name.').isLength({ min: 1 }),
     check('position_field', 'Invalid Position Name.').isLength({ min: 1 }),
     check('experience_field', 'Invalid Experience Level.').isLength({ min: 1 }),
@@ -72,7 +70,7 @@ app.post('/index', [
         }
       else {
         // Data from form is valid.
-        const company = req.body.company_field;
+        const company = sanitizeBody(req.body.company_field).unescape();
         const position = req.body.position_field;
         const experience = req.body.experience_field;
         const source = req.body.source_field;
