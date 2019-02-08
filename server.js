@@ -37,7 +37,7 @@ app.get('/', async (req, res) => {
       const query = await client.query('SELECT * FROM applications');
       const applications = { 'applications': (query) ? query.rows : null};
       for (application in applications.applications) {
-        console.log(application);
+        console.log(application.company);
       }
       //console.log(applications);
       res.render('pages/index', applications);
