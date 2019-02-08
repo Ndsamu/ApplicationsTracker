@@ -36,13 +36,21 @@
 
     <ul>
         <% applications.forEach(function(app) { %>
-            <li>Company: <%= app.company %> <br>
+            <li>Company: <%= decodeHtml(app.company) %> <br>
                 Position: <%= app.position %> <br>
                 Experience: <%= app.experience %> <br>
                 Source: <%= app.source %> <br>
             </li><br>
         <% }); %>
     </ul>
+
+<%
+function decodeHtml(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+}
+%>
 
 </div>
 

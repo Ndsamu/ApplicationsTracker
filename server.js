@@ -36,7 +36,7 @@ app.get('/', async (req, res) => {
       const client = await pool.connect();
       const query = await client.query('SELECT * FROM applications');
       query.rows.forEach(row=>{
-        console.log('Row: ' + decodeHtml(row.company));
+        console.log('Row: ' + row.company);
       });
       const applications = { 'applications': (query) ? query.rows : null};
       //for (application in applications.applications) {
@@ -143,10 +143,4 @@ showTimes = () => {
     result += i + ' '
   }
   return result;
-}
-
-function decodeHtml(html) {
-  var txt = document.createElement("textarea");
-  txt.innerHTML = html;
-  return txt.value;
 }
