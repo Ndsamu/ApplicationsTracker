@@ -8,8 +8,11 @@ const { sanitizeBody } = require('express-validator/filter');
 const path = require('path')
 const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
+// Handles local hosting where DATABASE_URL isn't available in the environment
+// This will be stored in a separate JS file which will be included in gitignore
+const connectionString = process.env.DATABASE_URL
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: connectionString,
   ssl: true
 });
 
