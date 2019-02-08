@@ -72,7 +72,7 @@ app.post('/index', [
         }
       else {
         // Data from form is valid.
-        const company = sanitizeBody(req.body.company_field).unescape();
+        const company = sanitizeBody(req.body.company_field.value).unescape();
         const position = req.body.position_field;
         const experience = req.body.experience_field;
         const source = req.body.source_field;
