@@ -36,10 +36,12 @@ app.get('/', async (req, res) => {
       const client = await pool.connect();
       const query = await client.query('SELECT * FROM applications');
       const applications = { 'applications': (query) ? query.rows : null};
-      //for (application in applications.applications) {
-        //console.log(application.company);
-      //}
-      console.log(applications);
+      for (application in applications.applications) {
+        for (parameter in application) {
+          console.log(parameter);
+        }
+      }
+      //console.log(applications);
       res.render('pages/index', applications);
       client.release();
     } catch (err) {
