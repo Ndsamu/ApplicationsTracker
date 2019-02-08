@@ -34,10 +34,10 @@ app.get('/', async (req, res) => {
 });
 
 app.post('/index', [
-    check('company_field', 'Empty Company Name.').isLength({ min: 1 }).isAlpha({ locale:'en-US' }),
-    check('position_field', 'Empty Position Name.').isLength({ min: 1 }).isAlpha({ locale:'en-US' }),
-    check('experience_field', 'Empty Experience Level.').isLength({ min: 1 }).isAlpha({ locale:'en-US' }),
-    check('source_field', 'Empty Source.').isLength({ min: 1 }).isAlpha({ locale:'en-US' }),
+    check('company_field', 'Empty Company Name.').isLength({ min: 1 }).isAlpha(),
+    check('position_field', 'Empty Position Name.').isLength({ min: 1 }).isAlpha(),
+    check('experience_field', 'Empty Experience Level.').isLength({ min: 1 }).isAlpha(),
+    check('source_field', 'Empty Source.').isLength({ min: 1 }).isAlpha(),
     sanitizeBody('company_field').trim().escape(),
     sanitizeBody('position_field').trim().escape(),
     sanitizeBody('experience_field').trim().escape(),
