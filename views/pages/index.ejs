@@ -36,10 +36,10 @@
 
     <ul>
         <% applications.forEach(function(app) { %>
-            <li>Company: <%= unescape(app.company) %> <br>
-                Position: <%= unescape(app.position) %> <br>
-                Experience: <%= unescape(app.experience) %> <br>
-                Source: <%= unescape(app.source) %> <br>
+            <li>Company: <%= htmlDecode(app.company) %> <br>
+                Position: <%= htmlDecode(app.position) %> <br>
+                Experience: <%= htmlDecode(app.experience) %> <br>
+                Source: <%= htmlDecode(app.source) %> <br>
             </li><br>
         <% }); %>
     </ul>
