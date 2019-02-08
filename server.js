@@ -39,7 +39,7 @@ app.get('/', async (req, res) => {
       for (application in applications) {
         console.log(application);
       }
-      console.log(applications);
+      //console.log(applications);
       res.render('pages/index', applications);
       client.release();
     } catch (err) {
