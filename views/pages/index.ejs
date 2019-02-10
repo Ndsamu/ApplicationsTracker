@@ -8,7 +8,7 @@
 
     <h2>Job Applications</h2>
 
-    <form action="/applications/create" method="post">
+    <form name="applicationForm" action="/applications/create" method="post" onsubmit="return validateForm()">
         <label for="company">Company Name: </label>
         <input id="company" type="text" name="company_field" placeholder="EvilCorp LLC.">
         <br>
