@@ -6,17 +6,17 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 // Networking
-const PORT = process.env.PORT || 5000
 const pool = require('./utilities/connection');
+const PORT = process.env.PORT || 5000
 
 // Local files
 const applications = require('./routes/applications');
 const color = require('./routes/color')
 
-
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'routes')));
 app.use(express.static(path.join(__dirname, 'utilities')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('views', path.join(__dirname, 'views'));
@@ -32,11 +32,10 @@ app.get('/', async (req, res) => {
     try {
       const client = await pool.connect();
       const query = await client.query('SELECT * FROM applications');
-      query.rows.forEach(row=>{
+      /*query.rows.forEach(row=>{
         console.log('Company: ' + row.company);
-      });
+      });*/
       const applications = { 'applications': (query) ? query.rows : null};
-      console.log(JSON.stringify(applications));
       res.render('pages/index', applications);
       client.release();
     } catch (err) {
