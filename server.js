@@ -1,47 +1,34 @@
 // NPM Packages
-const express = require('express');
-const flash = require('express-flash');
-const session = require('express-session');
-const bodyParser = require('body-parser');
-const path = require('path');
+const path = require('path')
+const express = require('express')
+const routes = require('./routes')
+const bodyParser = require('body-parser')
 
 // Networking
-const pool = require('./utilities/connection');
 const PORT = process.env.PORT || 5000
 
-// Local files
-const applications = require('./routes/applications');
-const color = require('./routes/color')
+const app = express()
 
-const app = express();
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'routes')));
-app.use(express.static(path.join(__dirname, 'utilities')));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+const middleware = [
+  express.static(path.join(__dirname, 'public')),
+  express.static(path.join(__dirname, 'utilities')),
+  bodyParser.urlencoded({ extended: true })
+]
 
-app.use('/applications', applications);
-app.use('/color', color);
+app.use(middleware)
 
-app.get('/color', color);
-app.post('/color', color);
+app.use('/', routes)
 
-app.get('/', async (req, res) => {
-    try {
-      const client = await pool.connect();
-      const query = await client.query('SELECT * FROM applications');
-      /*query.rows.forEach(row=>{
-        console.log('Company: ' + row.company);
-      });*/
-      const applications = { 'applications': (query) ? query.rows : null};
-      res.render('pages/index', applications);
-      client.release();
-    } catch (err) {
-      console.error(err);
-      res.send("Error " + err);
-    }
-});
+app.use((req, res, next) => {
+  res.status(404).send("Sorry, can't find that!")
+})
 
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
+
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))

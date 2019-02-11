@@ -29,6 +29,11 @@
   background: #b2ffee;
 }
 
+.error {
+  color: #ff0000;
+  font-size: 0.75em;
+}
+
 .center {
   width: 25%;
   margin:auto;
