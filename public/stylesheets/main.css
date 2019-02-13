@@ -1,32 +1,18 @@
-.jumbotron {
-  background: #532F8C;
-  color: white;
-  padding-bottom: 80px; }
-  .jumbotron .btn-primary {
-    background: #845ac7;
-    border-color: #845ac7; }
-    .jumbotron .btn-primary:hover {
-      background: #7646c1; }
-  .jumbotron p {
-    color: #d9ccee;
-    max-width: 75%;
-    margin: 1em auto 2em; }
-  .navbar + .jumbotron {
-    margin-top: -20px; }
-  .jumbotron .lang-logo {
-    display: block;
-    background: #B01302;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    border: 2px solid white; }
-    .jumbotron .lang-logo img {
-      max-width: 100%; }
+@import url('https://fonts.googleapis.com/css?family=Staatliches');
 
 .index {
-  background: #b2ffee;
+  background: #fff700;
+  color: #393939;
+  font-family: 'Staatliches';
+}
+
+.header {
+  display: table;
+  width: 100%;
+  background: #393939;
+  color: #fff700;
+  text-align: center;
+  height: 3em;
 }
 
 .error {
@@ -34,9 +20,53 @@
   font-size: 0.75em;
 }
 
-.center {
-  width: 25%;
+.form-wrapper {
+  width: 25em;
   margin:auto;
+  text-align: center;
+}
+
+.applications-wrapper {
+  width: 25em;
+  margin:auto;
+  margin-bottom: 25em;
+  text-align: center;
+}
+
+.application {
+  width: 20em;
+  margin: auto;
+  color: #fff700;
+  background: #393939;
+}
+
+form {
+  margin-top: 1em;
+  transition: all 4s ease-in-out;
+}
+
+.input {
+  width: 25em;
+  background: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid gray;
+  color: #393939;
+  font-size: 1em;
+  margin-bottom: 1em;
+}
+
+input {
+  height: 2em;
+  color: #393939;
+}
+
+input[type=submit] {
+  color: #fff700;
+  background: #393939;
+  border-color: transparent;
+  font-size: 1em;
+  font-family: 'Staatliches';
 }
 
 .red {
@@ -49,4 +79,8 @@
 
 .blue {
   background: #96fff6;
+}
+
+.error {
+  font-family: sans-serif;
 }

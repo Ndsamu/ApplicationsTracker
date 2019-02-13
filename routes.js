@@ -1,8 +1,11 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const { check,validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
+//const { sanitizeBody } = require('express-validator/filter');
 const router = express.Router()
 const pool = require('./utilities/connection')
+
+router.use(bodyParser.json())
 
 router.get('/', async (req, res) => {
     try {
@@ -21,12 +24,12 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/applications/create', [
-    // NOTE: DATA SHOULD NOT BE STORED AS ESCAPED. IT SHOULD BE UNESCAPED BEFORE STORAGE!
-    check('company_field', 'Invalid Company Name.').isLength({ min: 1 }),
-    check('position_field', 'Invalid Position Name.').isLength({ min: 1 }),
-    check('experience_field', 'Invalid Experience Level.').isLength({ min: 1 }),
-    check('source_field', 'Invalid Source.').isLength({ min: 1 })
+    check('company', 'Invalid Company Name.').isLength({ min: 1 }),
+    check('position', 'Invalid Position Name.').isLength({ min: 1 }),
+    check('experience', 'Invalid Experience Level.').isLength({ min: 1 }),
+    check('source', 'Invalid Source.').isLength({ min: 1 })
   ], async (req, res) => {
+    console.log('Supposed Company: ' + req.body.company);
     try {
       const errors = validationResult(req);
       
@@ -37,10 +40,10 @@ router.post('/applications/create', [
         }
       else {
         // Data from form is valid.
-        const company = req.body.company_field;
-        const position = req.body.position_field;
-        const experience = req.body.experience_field;
-        const source = req.body.source_field;
+        const company = req.body.company;
+        const position = req.body.position;
+        const experience = req.body.experience;
+        const source = req.body.source;
         const query = 'INSERT INTO applications VALUES (\''+company+'\', \''+position+'\', \''+experience+'\', \''+source+'\')';
         console.log(query);
         const client = await pool.connect();
