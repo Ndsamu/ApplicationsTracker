@@ -1,7 +1,6 @@
 function validateApplication(application) {
     
     var errors = "";
-    console.log(application);
     if (application.company == "" || application.company.indexOf('\'') > -1) {
         errors+="*Please enter a company name.\r\n";
     }
@@ -49,8 +48,21 @@ $( document ).ready(function() {
                 }
             });
 
+            document.getElementById('errorDiv').textContent = "Successful submission!";
+
             resetData();
         }
+    });
+
+    $('#applicationDelete').submit(function(event) {
+        event.preventDefault(); // Stops browser from navigating away from page
+        console.log('Delete button hit.');
+        $(":checkbox").each(function () {
+            var isChecked = $(this).is(":checked");
+            if (isChecked) {
+                console.log('Test: ' + $(this).attr("class"));
+            }
+        });
     });
 
     function resetData() {
@@ -58,6 +70,6 @@ $( document ).ready(function() {
         $('#position').val('');
         $('#experience').val('');
         $('#source').val('');
-    }
+    };
     
 })

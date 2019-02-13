@@ -20,24 +20,56 @@
   font-size: 0.75em;
 }
 
+.column1 {
+  float: left;
+  width: 50%;
+  transition: width 2s;
+}
+
 .form-wrapper {
   width: 25em;
   margin:auto;
   text-align: center;
 }
 
+.column2 {
+  float: right;
+  width: 50%;
+}
+
 .applications-wrapper {
-  width: 25em;
+  width: 100%;
   margin:auto;
-  margin-bottom: 25em;
   text-align: center;
 }
 
-.application {
+.application-wrapper {
   width: 20em;
+  height: 6em;
   margin: auto;
-  color: #fff700;
-  background: #393939;
+  margin-top: 1em;
+}
+
+.application {
+  position: absolute;
+  color: #393939;
+  border-color: #393939;
+  border-width: 5px;
+  background: #fff700;
+  text-align: left;
+  margin-left: 1em;
+  margin-top: 0.5em;
+}
+
+.delete {
+  margin: auto;
+  width: 50%;
+}
+
+.checkbox {
+  width: auto;
+  float: right;
+  margin-right: 0.5em;
 }
 
 form {

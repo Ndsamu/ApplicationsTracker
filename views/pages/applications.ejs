@@ -10,60 +10,67 @@
         <h2>Job Applications</h2>
 </div>
 
-<div class="form-wrapper">
+<div class="column1">
+    <div class="form-wrapper">
+        <form id="applicationForm" class="applicationForm" name="applicationForm">
+            <div class="form-field">
+                <label for="company">Company Name</label>
+                <input type="text" class="input" id="company" name="company_field">
+                <br>
+            </div>
+            <div class="form-field">
+                <label for="position">Position title</label>
+                <input type="text" class="input" id="position" name="position_field">
+                <br>
+            </div>
+            <div class="form-field">
+                <label for="experience">Experience level</label>
+                <input type="text" class="input" id="experience" name="experience_field">
+                <br>
+            </div>
+            <div class="form-field">
+                <label for="source">Job Source</label>
+                <input type="text" class="input" id="source" name="source_field">
+                <br>
+            </div>
+            <div class="form-actions">
+                <input type="submit" class = "input" id="btn" class="btn" value="Submit Application">
+            </div>
+        </form>
 
-    <h3>Submit an Application</h3>
-    <form id="applicationForm" class="applicationForm" name="applicationForm">
-        <div class="form-field">
-            <label for="company">Company Name</label>
-            <input type="text" class="input" id="company" name="company_field" placeholder="EvilCorp LLC.">
-            <br>
-        </div>
-        <div class="form-field">
-            <label for="position">Position title</label>
-            <input type="text" class="input" id="position" name="position_field" placeholder="Software Developer">
-            <br>
-        </div>
-        <div class="form-field">
-            <label for="experience">Experience level</label>
-            <input type="text" class="input" id="experience" name="experience_field" placeholder="Entry Level">
-            <br>
-        </div>
-        <div class="form-field">
-            <label for="source">Job Source</label>
-            <input type="text" class="input" id="source" name="source_field" placeholder="LinkedIn">
-            <br>
-        </div>
-        <div class="form-actions">
-            <input type="submit" class = "input" id="btn" class="btn" value="Submit Application">
-        </div>
-    </form>
-
-    <div class="error" id="errorDiv"></div>
+        <div class="error" id="errorDiv"></div>
+        <h3>Delete</h3>
+        <form action="/applications/delete" method="post">
+            <select onchange="this.form.submit()" name="company">
+                <option></option>
+                <% applications.forEach(function(app) { %>
+                    <option><%= app.company %></option>
+                <% }); %>
+            </select>
+        </form>
+    </div>
 </div>
 
-<div class="applications-wrapper">
-    <h3>Delete</h3>
-    <form action="/applications/delete" method="post">
-        <select onchange="this.form.submit()" name="company">
-            <option></option>
+<div class="column2">
+    <div class="applications-wrapper">
+        <form id="applicationDelete" class="applicationDelete" name="applicationDelete">
+            <div class="delete-wrapper">
+                <input type="submit" class="delete" id="delete-btn" class="delete-btn" value="Delete Application">
+            </div>
             <% applications.forEach(function(app) { %>
-                <option><%= app.company %></option>
+                <div class="application-wrapper">
+                    <div class="checkbox">
+                        <input type="checkbox" class="check">
+                    </div>
+                    <div class="application">
+                        Company: <%= app.company %> <br>
+                        Position: <%= app.position %> <br>
+                        Experience: <%= app.experience %> <br>
+                        Source: <%= app.source %> <br>
+                    </div>
+                </div>
             <% }); %>
-        </select>
-    </form>
-
-    <h3>Applications</h3>
-    <div>
-    <% applications.forEach(function(app) { %>
-        <br>
-        <div class="application">
-        Company: <%= app.company %> <br>
-        Position: <%= app.position %> <br>
-        Experience: <%= app.experience %> <br>
-        Source: <%= app.source %> <br>
-        </div>
-    <% }); %>
+        </form>
     </div>
 </div>
 
