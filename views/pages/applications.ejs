@@ -39,15 +39,6 @@
         </form>
 
         <div class="error" id="errorDiv"></div>
-        <h3>Delete</h3>
-        <form action="/applications/delete" method="post">
-            <select onchange="this.form.submit()" name="company">
-                <option></option>
-                <% applications.forEach(function(app) { %>
-                    <option><%= app.company %></option>
-                <% }); %>
-            </select>
-        </form>
     </div>
 </div>
 

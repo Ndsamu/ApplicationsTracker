@@ -61,15 +61,18 @@ router.post('/applications/create', [
 
 router.post('/applications/delete', async (req, res) => {
     try {
-      const company = req.body.company;
-      const query = 'DELETE FROM applications WHERE company = \''+company+'\'';
-      console.log(query);
-      const client = await pool.connect();
-      client.query(query);
-      client.release();
-      res.redirect('/')
+        var query = '';
+        const client = await pool.connect();
+        for (i in req.body.names) {
+            console.log(req.body.names[i]);
+            query = 'DELETE FROM applications WHERE company = \''+req.body.names[i]+'\'';
+            console.log(query);
+            client.query(query);
+        };
+        client.release();
+        res.redirect('/');
     } catch {
-      res.send("Hm. That isn't right. " + err);
+        res.send("Hm. That isn't right. " + err);
     }
 });
 
