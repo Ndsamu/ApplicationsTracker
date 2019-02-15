@@ -41,12 +41,19 @@ router.post('/applications/create', [
         const position = req.body.position
         const experience = req.body.experience
         const source = req.body.source
+        // Creation of object to be sent back to client side
+        const application = {
+            company: company,
+            position: position,
+            experience: experience,
+            source: source
+        }
         const query = 'INSERT INTO applications VALUES (\''+company+'\', \''+position+'\', \''+experience+'\', \''+source+'\')'
         console.log(query)
         const client = await pool.connect()
         client.query(query)
         client.release()
-        res.send(JSON.stringify({response: 'success'}))
+        res.send(JSON.stringify({application: application}))
       }
     } catch (err) {
       res.send("Hm. That isn't right. " + err)

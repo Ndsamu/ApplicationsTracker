@@ -20,10 +20,7 @@ $( document ).ready(function() {
                 data: JSON.stringify(application),
                 dataType: 'json',
                 success: function(res) {
-                    if (res.response == 'success') {
-                        console.log('Success!');
-                        addApplication(application);
-                    }
+                    addApplication(res.application);
                 },
                 error: function() {
                     console.log('Server failed to respond.');
