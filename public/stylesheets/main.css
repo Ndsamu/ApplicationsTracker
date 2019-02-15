@@ -72,6 +72,7 @@
   width: 100%;
   background: #fff700;
   color: #393939;
+  cursor: pointer;
 }
 
 .checkbox {
@@ -107,6 +108,7 @@ input[type=submit] {
   border-color: transparent;
   font-size: 1em;
   font-family: 'Staatliches';
+  cursor: pointer;
 }
 
 .red {
