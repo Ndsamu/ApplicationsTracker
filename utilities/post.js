@@ -39,13 +39,13 @@ $( document ).ready(function() {
                 names.push($(this).attr("class"));
             }
         });
-        var test = { names: names }
+        var data = { names: names }
         console.log('Data: ' + names);
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
             url: window.location + 'applications/delete',
-            data: JSON.stringify(test),
+            data: JSON.stringify(data),
             dataType: 'json',
             success: function(res) {
                 if (res.response == 'success') {
@@ -96,6 +96,7 @@ function addApplication(application) {
     const container = document.getElementsByClassName('applicationDelete')[0];
     const appWrap = document.createElement('div');
     appWrap.classList.add('application-wrapper');
+    appWrap.id = application.company;
     const checkbox = document.createElement('div')
     checkbox.classList.add('checkbox');
     const check = document.createElement('input');
