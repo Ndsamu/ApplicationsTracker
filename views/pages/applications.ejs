@@ -14,22 +14,22 @@
     <div class="form-wrapper">
         <form id="applicationForm" class="applicationForm" name="applicationForm">
             <div class="form-field">
-                <label for="company">Company Name</label>
+                <label for="company">Company Name</label><br>
                 <input type="text" class="input" id="company" name="company_field">
                 <br>
             </div>
             <div class="form-field">
-                <label for="position">Position title</label>
+                <label for="position">Position title</label><br>
                 <input type="text" class="input" id="position" name="position_field">
                 <br>
             </div>
             <div class="form-field">
-                <label for="experience">Experience level</label>
+                <label for="experience">Experience level</label><br>
                 <input type="text" class="input" id="experience" name="experience_field">
                 <br>
             </div>
             <div class="form-field">
-                <label for="source">Job Source</label>
+                <label for="source">Job Source</label><br>
                 <input type="text" class="input" id="source" name="source_field">
                 <br>
             </div>
@@ -46,12 +46,12 @@
     <div class="applications-wrapper">
         <form id="applicationDelete" class="applicationDelete" name="applicationDelete">
             <div class="delete-wrapper">
-                <input type="submit" class="delete" id="delete-btn" class="delete-btn" value="Delete Application">
+                <input type="submit" class="delete" id="delete-btn" value="Delete Application">
             </div>
             <% applications.forEach(function(app) { %>
-                <div class="application-wrapper">
+                <div class="application-wrapper" id="<%=app.company%>">
                     <div class="checkbox">
-                        <input type="checkbox" class=<%= app.company %>>
+                        <input type="checkbox" class="<%=app.company%>">
                     </div>
                     <div class="application">
                         Company: <%= app.company %> <br>

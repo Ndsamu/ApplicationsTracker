@@ -2,7 +2,7 @@ $( document ).ready(function() {
 
     $('#applicationForm').submit(function(event) {
         event.preventDefault(); // Stops browser from navigating away from page
-        
+        // Fill JSON object with application
         var application = {
             company: $('#company').val(),
             position: $('#position').val(),
@@ -19,13 +19,16 @@ $( document ).ready(function() {
                 url: window.location + 'applications/create',
                 data: JSON.stringify(application),
                 dataType: 'json',
-                success: function() {
-                    $('#errorDiv').html('Successful submission!');
+                success: function(res) {
+                    if (res.response == 'success') {
+                        console.log('Success!');
+                        addApplication(application);
+                    }
+                },
+                error: function() {
+                    console.log('Server failed to respond.');
                 }
             });
-
-            document.getElementById('errorDiv').textContent = "Successful submission!";
-
             resetData();
         }
     });
@@ -46,7 +49,16 @@ $( document ).ready(function() {
             contentType: 'application/json',
             url: window.location + 'applications/delete',
             data: JSON.stringify(test),
-            dataType: 'json'
+            dataType: 'json',
+            success: function(res) {
+                if (res.response == 'success') {
+                    var application;
+                    for (i in names) {
+                        application = document.getElementById(names[i]);
+                        application.parentNode.removeChild(application);
+                    }
+                }
+            }
         });
     });
 
@@ -78,7 +90,31 @@ function validateApplication(application) {
         document.getElementById('errorDiv').textContent = errors;
         return false;
     } else {
-        console.log("Form Validation Successful.");
+        document.getElementById('errorDiv').textContent = "Successful submission!";
         return true;
     }
+}
+
+function addApplication(application) {
+    const container = document.getElementsByClassName('applicationDelete')[0];
+    const appWrap = document.createElement('div');
+    appWrap.classList.add('application-wrapper');
+    const checkbox = document.createElement('div')
+    checkbox.classList.add('checkbox');
+    const check = document.createElement('input');
+    check.type = 'checkbox';
+    check.classList.add(application.company);
+    const app = document.createElement('div')
+    app.classList.add('application');
+
+    checkbox.appendChild(check);
+    appWrap.appendChild(checkbox);
+    appWrap.appendChild(app);
+    container.insertBefore(appWrap, container.childNodes[3]);
+    
+    app.innerHTML = '\
+    Company: ' + application.company + '<br>\
+    Position: ' + application.position + '<br>\
+    Experience: ' + application.experience + '<br>\
+    Source: ' + application.source + '<br>';
 }
