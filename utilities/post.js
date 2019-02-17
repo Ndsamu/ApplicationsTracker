@@ -76,19 +76,19 @@ function validateApplication(application) {
     document.getElementById('errorSource').textContent = "";
     var errors = "";
     if (application.company == "" || application.company.indexOf('\'') > -1) {
-        errors+="*Please enter a valid company name.\r\n";
+        errors+="*Please enter a valid company name.<br>";
         document.getElementById('errorCompany').textContent = "*Invalid input";
     }
     if (application.position == "" || application.position.indexOf('\'') > -1) {
-        errors+="<br>*Please enter a valid position.\n";
+        errors+="*Please enter a valid position.<br>";
         document.getElementById('errorPosition').textContent = "*Invalid input";
     }
     if (application.experience == "" || application.experience.indexOf('\'') > -1) {
-        errors+="<br>*Please enter a valid experience level.\n";
+        errors+="*Please enter a valid experience level.<br>";
         document.getElementById('errorExperience').textContent = "*Invalid input";
     }
     if (application.source == "" || application.source.indexOf('\'') > -1) {
-        errors+="<br>*Please enter a valid job source.\n";
+        errors+="*Please enter a valid job source.";
         document.getElementById('errorSource').textContent = "*Invalid input";
     }
     if (errors) {
