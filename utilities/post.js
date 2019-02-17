@@ -1,7 +1,8 @@
 $( document ).ready(function() {
 
     $('#applicationForm').submit(function(event) {
-        event.preventDefault(); // Stops browser from navigating away from page
+        // Stops browser from navigating away from page
+        event.preventDefault();
         // Fill JSON object with application
         var application = {
             company: $('#company').val(),
@@ -10,9 +11,9 @@ $( document ).ready(function() {
             source: $('#source').val()
         };
 
-        console.log(application);
-
         if (validateApplication(application)) {
+            // Make a post request using AJAX which passes the application
+            // Data passed through HTML must be "stringified"
             $.ajax({
                 type: 'POST',
                 contentType: 'application/json',
@@ -28,10 +29,12 @@ $( document ).ready(function() {
             });
             resetData();
         }
+        $("#company").focus();
     });
 
     $('#applicationDelete').submit(function(event) {
-        event.preventDefault(); // Stops browser from navigating away from page
+        // Stops browser from navigating away from page
+        event.preventDefault();
         var IDs = [];
         $(":checkbox").each(function () {
             var isChecked = $(this).is(":checked");
@@ -41,7 +44,6 @@ $( document ).ready(function() {
             }
         });
         var data = { IDs: IDs }
-        console.log('Data: ' + IDs);
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
@@ -56,6 +58,9 @@ $( document ).ready(function() {
                         application.parentNode.removeChild(application);
                     }
                 }
+            },
+            error: function() {
+                console.log('Server failed to respond.');
             }
         });
     });
