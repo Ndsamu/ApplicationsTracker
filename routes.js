@@ -42,18 +42,23 @@ router.post('/applications/create', [
         const experience = req.body.experience
         const source = req.body.source
         // Creation of object to be sent back to client side
-        const application = {
+        var application = {
             company: company,
             position: position,
             experience: experience,
             source: source
         }
-        const query = 'INSERT INTO applications VALUES (\''+company+'\', \''+position+'\', \''+experience+'\', \''+source+'\')'
+        const query = 'INSERT INTO applications VALUES (\''+company+'\', \''+position+'\', \''+experience+'\', \''+source+'\') RETURNING app_id'
         console.log(query)
         const client = await pool.connect()
-        client.query(query)
-        client.release()
-        res.send(JSON.stringify({application: application}))
+        const promise = client.query(query)
+        var id;
+        promise.then(function(result) {
+          id = result.rows[0].app_id;
+          application.id = id;
+          client.release()
+          res.send(JSON.stringify({application: application}))
+        })
       }
     } catch (err) {
       res.send("Hm. That isn't right. " + err)
@@ -64,8 +69,8 @@ router.post('/applications/delete', async (req, res) => {
     try {
         var query = ''
         const client = await pool.connect()
-        for (i in req.body.names) {
-            query = 'DELETE FROM applications WHERE company = \''+req.body.names[i]+'\''
+        for (i in req.body.IDs) {
+            query = 'DELETE FROM applications WHERE app_id = \''+req.body.IDs[i]+'\''
             console.log(query)
             client.query(query)
         }

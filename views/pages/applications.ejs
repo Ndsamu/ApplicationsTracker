@@ -17,28 +17,31 @@
                 <label for="company">Company Name</label><br>
                 <input type="text" class="input" id="company" name="company_field">
                 <br>
+                <div class="error" id="errorCompany"></div>
             </div>
             <div class="form-field">
                 <label for="position">Position title</label><br>
                 <input type="text" class="input" id="position" name="position_field">
                 <br>
+                <div class="error" id="errorPosition"></div>
             </div>
             <div class="form-field">
                 <label for="experience">Experience level</label><br>
                 <input type="text" class="input" id="experience" name="experience_field">
                 <br>
+                <div class="error" id="errorExperience"></div>
             </div>
             <div class="form-field">
                 <label for="source">Job Source</label><br>
                 <input type="text" class="input" id="source" name="source_field">
                 <br>
+                <div class="error" id="errorSource"></div>
             </div>
             <div class="form-actions">
                 <input type="submit" class = "input" id="btn" class="btn" value="Submit Application">
             </div>
+            <div class="error" id="errorDiv"></div>
         </form>
-
-        <div class="error" id="errorDiv"></div>
     </div>
 </div>
 
@@ -49,9 +52,9 @@
                 <input type="submit" class="delete" id="delete-btn" value="Delete Application">
             </div>
             <% applications.forEach(function(app) { %>
-                <div class="application-wrapper" id="<%=app.company%>">
+                <div class="application-wrapper" id="<%=app.app_id%>">
                     <div class="checkbox">
-                        <input type="checkbox" class="<%=app.company%>">
+                        <input type="checkbox" class="<%=app.app_id%>">
                     </div>
                     <div class="application">
                         Company: <%= app.company %> <br>

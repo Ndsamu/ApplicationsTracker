@@ -32,15 +32,16 @@ $( document ).ready(function() {
 
     $('#applicationDelete').submit(function(event) {
         event.preventDefault(); // Stops browser from navigating away from page
-        var names = [];
+        var IDs = [];
         $(":checkbox").each(function () {
             var isChecked = $(this).is(":checked");
             if (isChecked) {
-                names.push($(this).attr("class"));
+                //console.log($(this).parentNode.attr("class"));
+                IDs.push($(this).attr("class"));
             }
         });
-        var data = { names: names }
-        console.log('Data: ' + names);
+        var data = { IDs: IDs }
+        console.log('Data: ' + IDs);
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
@@ -50,8 +51,8 @@ $( document ).ready(function() {
             success: function(res) {
                 if (res.response == 'success') {
                     var application;
-                    for (i in names) {
-                        application = document.getElementById(names[i]);
+                    for (i in IDs) {
+                        application = document.getElementById(IDs[i]);
                         application.parentNode.removeChild(application);
                     }
                 }
@@ -69,25 +70,36 @@ $( document ).ready(function() {
 })
 
 function validateApplication(application) {
-    
+    document.getElementById('errorCompany').textContent = "";
+    document.getElementById('errorPosition').textContent = "";
+    document.getElementById('errorExperience').textContent = "";
+    document.getElementById('errorSource').textContent = "";
     var errors = "";
     if (application.company == "" || application.company.indexOf('\'') > -1) {
-        errors+="*Please enter a company name.\r\n";
+        errors+="*Please enter a valid company name.\r\n";
+        document.getElementById('errorCompany').textContent = "*Invalid input";
     }
     if (application.position == "" || application.position.indexOf('\'') > -1) {
-        errors+="*Please enter a valid position.\n";
+        errors+="<br>*Please enter a valid position.\n";
+        document.getElementById('errorPosition').textContent = "*Invalid input";
     }
     if (application.experience == "" || application.experience.indexOf('\'') > -1) {
-        errors+="*Please enter a valid experience level.\n";
+        errors+="<br>*Please enter a valid experience level.\n";
+        document.getElementById('errorExperience').textContent = "*Invalid input";
     }
     if (application.source == "" || application.source.indexOf('\'') > -1) {
-        errors+="*Please enter a valid job source.\n";
+        errors+="<br>*Please enter a valid job source.\n";
+        document.getElementById('errorSource').textContent = "*Invalid input";
     }
     if (errors) {
-        document.getElementById('errorDiv').textContent = errors;
+        document.getElementById('errorDiv').innerHTML = errors;
         return false;
     } else {
-        document.getElementById('errorDiv').textContent = "Successful submission!";
+        document.getElementById('errorCompany').textContent = "";
+        document.getElementById('errorPosition').textContent = "";
+        document.getElementById('errorExperience').textContent = "";
+        document.getElementById('errorSource').textContent = "";
+        document.getElementById('errorDiv').innerHTML = "";
         return true;
     }
 }
@@ -96,12 +108,12 @@ function addApplication(application) {
     const container = document.getElementsByClassName('applicationDelete')[0];
     const appWrap = document.createElement('div');
     appWrap.classList.add('application-wrapper');
-    appWrap.id = application.company;
+    appWrap.id = application.id;
     const checkbox = document.createElement('div')
     checkbox.classList.add('checkbox');
     const check = document.createElement('input');
     check.type = 'checkbox';
-    check.classList.add(application.company);
+    check.classList.add(application.id);
     const app = document.createElement('div')
     app.classList.add('application');
 
