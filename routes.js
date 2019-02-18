@@ -7,6 +7,10 @@ const pool = require('./utilities/connection')
 
 router.use(bodyParser.json())
 
+router.get('/sample', (req, res) => {
+  res.render('pages/sample')
+})
+
 router.get('/', async (req, res) => {
     try {
       const client = await pool.connect()
