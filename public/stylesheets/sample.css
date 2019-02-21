@@ -1,21 +1,22 @@
 .container {
     width: auto;
+    text-align: center;
     height: 100px;
     margin: auto;
     background: #000000;
 }
 
 .titles {
-    float: left;
     background: #c2c2c2;
     text-align: left;
     color: #ffffff;
+    display: inline-block;
 }
 
 .appData {
-    float: left;
     background: #d0d0d0;
     text-align: left;
     margin-left: 5px;
     color: #ffffff;
+    display: inline-block;
 }
