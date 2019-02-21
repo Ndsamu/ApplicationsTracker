@@ -1,7 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const { check,validationResult } = require('express-validator/check')
-//const { sanitizeBody } = require('express-validator/filter')
 const router = express.Router()
 const pool = require('./utilities/connection')
 
